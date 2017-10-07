@@ -159,22 +159,6 @@ end //  WE coupled to `where` method(AND SINCE -- COUPLED TO THE FRAMEWORK, and 
 //! `good abstr with small number of layers is better than "ideal"(super-ergonomic and cool)
 //!  abstr with many layers`
 
-@7 (19-may-16)
-// 9 po principu pGrahama (sozdai 9zyk i piwy nim programmu) pisal general fns tipa
-function def_somefun(name, fff) {
-    Some.prototype[name] = function () {
-        blabla(); ...
-        bla = bla + fff(); ...
-    }
-}
-// 1) tut tipa 9 i general fn uzau(v SICP: proc abstr) i sdelal svoi element 9zika `def_somefun`.
-// 2) NO, kak 9 vizhu luchwe vse zhe pridezhivat's9 strategii chto nado pisat' vse
-//  fns vruchnuu, i uzat' vnutri ih `helpery` kotorye u nih vseh budut ob'wie
-//  (bo oni odinakovye za isklucheniem koda v `fff`).
-// (1)-sposob (elem_9zika wo ob'9v fns) mozhet byt' inogda actual'nyi, vozmozhno
-//  kogda fn real'no ochen' mnogo, ili kak v `defineGetter` v code(real'nom ne moem) vywe [hot9 i 
-//  ide9 s `secure` tupa9].
-///         ^--  :LOL: (spust9 god) -- ne fact wo tupa9
 
 @8
 // from WebSocket(my refactoring, interesting comments)
@@ -193,25 +177,6 @@ function _send_binary_data(self, bufs, cb) {
     }
 }
 
-@9
-// a little bit about stuff before `explaining promises` in YDKJS
-function cb(err, data) { if (err) error(err); else success(data); }
-// cb-style
-foo(args, cb); // << here `foo` is async, and it call `cb` to do stuff in next cycle of ev-loop
-// better
-var listener = foo(args);
-listener.on('success', success);
-listener.on('error', error);
-baz(listener); // << [the point] 1. we can live independently of `foo`, 2. We are sure that it async
-
-@9 (01-oct-17)
-// 
-// I don't install fucking redis on VM, and run my app, ... auth/passport didn't
-// work, I start investigate why ... session id wasn't passed in cookies ...
-// SO... fucking express-session(not even because of it "govnocode") just skip
-// itself(middleware) if store is not connected (btw: I has read this fucking check
-// 100times before(april-2016)) ....
-// .... SO SUKA ... AGAIN  ...................... FAIL FAST
 
 
 @10
@@ -302,39 +267,6 @@ some_fn(...);
 // style, and we can't mix all in single heap of garbage
 
 
-@12
-Mocha.prototype.enableTimeouts = function(enabled) {
-  this.suite.enableTimeouts(arguments.length && enabled !== undefined ? enabled : true);
-  return this;
-};
-// ^-- It's suppused for writing code like
-mocha.enableTimeouts();
-// But `nahui`, I realize that often for writing good code(from my perspective, but not necessary
-// from `cowboy-style`-JS-devs), I need think how I wrote some code in Rust, and write in such way
-// (of course it's not wise to always try follow Rust-style for any cost), AND here I would write:
-Mocha.prototype.enableTimeouts = function (enabled: bool) { // << in Rust is `bool` not Option<bool>
-    this.suite.enableTimeouts = enabled;        // over complexity in types show complexity in code
-}                       // of course we have no "default true", BUT, `nahui nado`, be explicit
-mocha.enableTimeouts(true); // As Python-dictator also said : explicit is better than implicit..
-// .. AND what is more importan the code is has much simpler logic
-//
-// explicitness not always better, sometimes we need compromise between them, but usually(and
-// particularly in this case) it's better. 
-//
-// p.s.  I saw as Niko.M do in the same stupid way in Lalrpop
-pub fn always_use_colors(&mut self) -> &mut Configuration {
-    self.session.color_config = ColorConfig::Yes;    self
-}
-pub fn never_use_colors(&mut self) -> &mut Configuration {
-    self.session.color_config = ColorConfig::No;     self
-}
-pub fn use_colors_if_tty(&mut self) -> &mut Configuration {
-    self.session.color_config = ColorConfig::IfTty;  self
-}
-// BUT, it can be explained by the fact that in such case we not need import
-// `ColorConfig`, and we don't care about this structire at all, so, it's for a reason,
-// BUT, in JS we just use Boolean, so it's stupid
-
 @13
 this.suite  = new Mocha.Suite('', new Mocha.Context());
 this.ui     = opts.ui;
@@ -346,28 +278,7 @@ this.ui     = opts.ui;
 // It's seems that Miwko advice about "ONLY assign in constructor, THAT ALL" can
 // solve this problem
 
-@14
-// from Eff.JS(68-tips):39hint -- never reuse superclass property names
-// But, in langs what use only COMPOSITION instead of INHERITANCE (like Rust, Hskl) , this problem 
-// is IMPOSSIBLE, because in Rust it will looks like:
-struct Child { id: usize, parent: Parent, ... }
-struct Parent { id: usize, ....  }
-// SO we can't resuse `parent id` AT ALL, since it 2 different vars, OR, we in Rust we can use
-// pointer (BUT EXPLITICLY, and it rare case what we need do that)
 
-@15
-// About relation of Promises and Monads
-//
-// So monads serve to describe series of computation with some context(called
-// side-eff), so it INCAPSULATE this context inside itself(abstract of that),
-// SO when we consider Promises, we have series of fns(computations) which go
-// one after another, and the context is asynchronicity, so here monad(Promise)
-// just incapsulate this context inside of itself(p.s. and ABSTRACT of IT), ..
-// .. SO .. usually I consider Monad as abstraction over side-eff in comp-chain,
-// but here I concentrate on how this chain is composed, and how `bind`
-// incapsulate this composition inside of itself ..
-// .. SO .. the power of Monad is incapsulation of `the-way-to-chain`
-// computation in the `bind` fn.
 
 //              (from article about handling Node errors)
 @16
@@ -416,12 +327,6 @@ function fuck(..., cb) {                        // So, .. less checks
 // checking whether it has correct type, and you have semantic error in your programm,
 // YOU PROGRARM JUST DO NOTHING, instead of UNPIPE "writable" pipe from your "readable" pipe, 
 // and you doesn't know about it.
-
-@21
-// What is good about realization of "express-session"(Store and MemoryStore):
-// 1. About Store. It's ROLE-modeled interface(we can implement it using any storage: 
-//    Mongo, Redis, MemoryStore, etc, and it's DOESN'T TELL US ANYTHING ABOUT _NATURE_ OF STORAGE).
-// 2. About MemoryStore. It's care abaut to do all `cb`s ASYNC(don't RELEASE a ZALGO)
 
 @22
 // Good pattern from `raw-body`
@@ -571,14 +476,6 @@ function Namespace.initAdapter(Adapter) { this.adapter = new Adapter(this); }
 // | YOU'VE MENTALLY EXECUTED THE WHOLE PROGRAM UP TO THAT POINT. ($$: as-min read docs)
 // | Guess who's good at running your program? The JS engine. Guess who's not as good at running
 // | your program? The READER OF your CODE.
-
-
-@27
-// "lazystream"-module in JS - exmp of code where high-order-fn only makes code more
-// complicated .. and copy-n-past here brings benefit
-//   ..NOTE: see mode old version .. in new it's reduce amount(responsibility) of "high-ord-fn", 
-//   and do more of copypasting  ... maybe this new version (with reduced "high-ord-fn") is 
-//   actually BEST COMPOROMISE.
 
 
 @28
