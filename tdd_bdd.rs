@@ -1,11 +1,15 @@
 ///                MOTTO:
-///         write only usefull tests (if in doubt leave test out)
+///         write only usefull for INVESTIVATION tests (if in doubt leave test out)
 ///         Test should help INVESTIGATE behavior of programm by reading this test
 ///             all other tests leave to QA
 ///         It should be like in Rust Docs-with-example where examples compiled-and-checked
 ///         BUT with focus more on Examples instead of Docs
 ///             and leave solving probleme of "absence of bugs" to "simplicity of implementation"
 ///                             (and "simplicity of purposes" - less edge-cases)
+///                 SO
+///     Treat TDD-tests like another kind of DOCUMENTATION, but not as a tool to prevent/track
+///     bugs (its (prevent): typesystem, simple-code-style(Preact instead of jQuery), code-review
+///             & (track) QA-test)
 
 ## 0    // (30-jul-17)
 //
