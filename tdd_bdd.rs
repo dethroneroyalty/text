@@ -5,7 +5,7 @@
 ///         It should be like in Rust Docs-with-example where examples compiled-and-checked
 ///         BUT with focus more on Examples instead of Docs
 ///             and leave solving probleme of "absence of bugs" to "simplicity of implementation"
-///                             (and "simplicity of purposes")
+///                             (and "simplicity of purposes" - less edge-cases)
 
 ## 0    // (30-jul-17)
 //
@@ -14,23 +14,13 @@
 // your test)
 // It's opposed to how I write in ruby:
 for meth in ["save", "fuck", "police"] {
-    it("should has method #${meth}", || self.should_respond_to(meth); )
+    it("should has method #${meth}", || self.should_respond_to(meth); ) // << Type-system for poors
 }
 // In such case we loose the power of dynamic language, since like in Rust every refactor/change to
 // code often can brake our tests.
 
 
 ## 6
-/// **WHAT WE SHOULD TEST ????**
-// 1. Input/output relation.
-// 2. Side-effects (state, io, ...)
-//      [in Dyn.lang also types(since typechenking in Runtime it can be treated as yet another
-//      side-effect{throw error if wrong type})]
-// 
-///  **The main complexity in programming is all about .. manage side-effects.  
-///    Manage: who(fn generally, obj/method in OO) which permission/capability is have**  
-///                                             \+ API-building, type-safety, resource-managment  
-// 
 // in *non-pure langs* and *langs without borrow-cheker* the all complexity is reduced to
 ///                 WHAT SIDE-EFFS FN CAN DO
 // *(since it can do **any** side-effect **everywhere** (like in JS) )*,  
@@ -81,8 +71,9 @@ describe("array", || {                      // << object
         it("lenght should be 0");           // |<< side-eff+fun-ret-vals
         it("pop should raise exception")    // |
     })
-})
-// .. continue .. (__7__)
+})      ^
+///     ^---    BTW ... if event do test-before-code ....it's best case TO JUST INTENTION
+///     BEFORE CODE
 
 
 ## 9
