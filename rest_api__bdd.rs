@@ -63,40 +63,6 @@ v
 // nepokolebimy, no odnovremenno on i ne dolzhen zakamenit's9 na konckretike"
 
 
-## 6 >> moved ::tdd_bdd.rs
-
-## 7
-//!  So .. conclusion for now: every data you are using in the function should
-//!  be mutated only in this function, and every data you mutate in the function
-//!  should not be read/write in other functions bellow-in-stack(during execution your
-//!  function - that is while you borrow it)..[p.s. EXCEPT IF YOU PASS THIS PERMISSION EXPLICITLY]
-//!  and above(if you cally)
-//!      ^-- NO MUT_ALIASING..
-//!         .. since we need "prepare state" before calling "some_fn", but IT'S NOT OBVIOUS
-//              (although in Actor#move it's obvious and on_purpose)
-//
-class Actor {
-    moveTo(x, y) {
-        this.x = x; this.y = y;
-        // only AFTER we mutate `this`:Actor that makes sense to `draw` scene
-        this.scene.draw();
-    }
-}
-// ... in JS, I should READ the doc (IN BEST CASE) or src(IN WORST CASE) to KNOW that I should do
-// `scene.draw` after "assignments"..
-//      (or PREPARE "SPECIAL_STATE" for `draw`, to achieve desired side-eff)
-//  .., and here it's "LIKE" obvious, it's "LIKE" intentionally, ..
-// .. BUT in many cases it's "NOT OBVIOUS" and people don't do it "INTENTIONALLY", but ACCIDENTALLY
-// that causes a BUGs.
-//      ..
-//      ^-- BUT according to W-B .. it's can be ***simpler, ("i do it on_purpose") espesially
-//      on the stage of "prototyping" or "early designing" ... SO ..
-//                  ... THE HACKER WAY IS DISCOVER THAT TRADEOF
-
-## 9 >> moved ::tdd_bdd.rs
-
-## 10 >> moved ::tdd_bdd.rs
-
 ## 11 // (inspired by youtube:"How to design a good api and why it matters" 2007)
 //
 // Someone can say: "We need add new data structures and RPCs with Version2 attributes"
@@ -142,12 +108,9 @@ class Actor {
 // this lections (recomended by Er.Normand) .. so tada .. In RUST it's INTEGRATED in types, win!
 
 ## 16
-// 1. O univarsal'nosti monad: from theoretic perspectiv it's cool. For exmp remember my thoughts
-//    that monads let's to apply one func to diff contexts(list, or IO) so ..
-someFun a = return (a + a) // << Haskl ..
-//  ...  let us to use the same fn as in IO monad, as in List monad ,  BUT ,on practice it's TOO
-//  RARE, for exmp consider `Promise` monad in JS,   IT'S VERY UNLIKELY that the same fn can be
-//  used as in Promis as in `arr.map(fn)`  SO,    IN RUST we don't bother about HKT, since on
+//  ...deleted... on practice it's TOO RARE, for exmp consider `Promise` monad in JS,
+//  IT'S VERY UNLIKELY that the same fn can be used as in Promis as in `arr.map(fn)`
+//      SO,    IN RUST we don't bother about HKT, since on
 //  practice it's not necessary (it's only necessary in PURE-func langs[formalism fuck])   ...
 //  .. MOREOVER  if we have such situation as with `someFun` we can do like:
 struct IO {
@@ -175,17 +138,8 @@ function define_fn(obj, name, f) {                           // `some pattern **
 // Promise -- keywork `async` describe IO-unpure)   .. WIN
 //
 // Moreover we can even define something like Transformer for IO in Rust
-struct IO<T> { }
+enum IO<T> { }
 impl<T> IO<List<T>> { ... }
-//
-// Also .. about JS GENERATORS, maybe its profitability is that they incapsulate mutability.
-// So, in cases when our async fn(cb) is rely on some glob(at least relativly them)
-// variable(which it capture in closure(it is closure/fn/cb))  WE CAN USE GENEREATOR(or actualy
-// it's iterator for that moment) TO INCAPSULATE THIS MUTABLE STATE (see practical cases(not so
-// well suited, but for start it's good) in ponyfoo[async io with promises and generators])
-
-
-## 18 >> moved tdd_bdd.rs
 
 ## 19
 // How I understand DIP(SOLID#5).  It's mistake to write structure, and try too invent interface
@@ -219,10 +173,6 @@ impl<T> IO<List<T>> { ... }
 // Also: I read about Hexagonal-arch ... so there also similar exmp, our business logic, interact
 // with "outside-world" through adapter, which represent object with our USE-CASE oriented (and
 // MOST GENERAL AS POSSIBLE (i think so now)) interface
-
-## 20  redirect to ## 18
-
-## 21 >> moved to ::tdd_bdd.rs
 
 
 ## 22
@@ -318,13 +268,6 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 //                if your so unconfident, and scare that any little change breaks YOUR ENTIRE
 //                CODEBASE ... the problem in your code, NOT in SPEED OF TEST_CODE_REFACT-LOOP
 ///               TESTs SHOULD BE FAST ENOUGH]
-//          GOOD analogy from comment in E.Bugaenko blog about:
-//              ALPINIST .. with TDD he stop move most "Simple" way{ like he do it without
-//              "VEREVKI"}, and sine "verevka" "like" "strahuet" he , he becomes more confident
-//              and start "ispoln9t' huinu"(like [over]"refactoring"/[over]"designing"), that is
-//              he is distracted from "GIST" aka "efficient path" aka "what we want"
-//              .... where as its "colleague" because tons of tests doen't do it "confident"(na
-//              pustom meste) .. MAKE CODE ***SIMPLER , "ne pozvol9et sebe finty_uwami"
 //              ..
 //              Also @DHH mention how TDD makes people do stupid things (like J.Weirich with hes
 //              "decoupling from rails")
@@ -340,8 +283,6 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 /// think about code .. but actually you think IN THIS NEW CATEGORIES .. which "GARBLE" the GIST
 
 
-## 24 >> moved ::tdd_bdd.rs
-
 ## 25
 // AGAIN: about "TEMPORAL COUPLING"
 // ..
@@ -349,8 +290,6 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 // which we change the state,
 // functional programming has NO IMPLICIT "comp-order", so that why in Yegor256 expm about
 // "post-get-reguest" he complain about "temporal coupling"
-
-## 26  >> moved into "idempotent.rs"
 
 ## 27
 // You need insert "assert" (only) in places where "if we here - it's definetly bug (or at least
@@ -398,34 +337,6 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 //  (nevertheless, even with "justifications" it's seems STUPID, 
 ///     DHH: send me a "magic-dust" from the "world" where stackholders write "Cucumber-features")
 
-
-## 31
-//  https://habrahabr.ru/post/151169/
-//  
-//  ^-- repost this shit a lot time ago (~2014), when I was "uporotyi" Ruby-shit-OOP-shit
-//  ..
-//  MOST STUPID QOUTE from this article:
-//      Но у нас нету каких-либо хороших способов описать взаимодействие объектов между собой
-//      в рантайме для выполнения сценария использования. 
-//  ..
-//  Why stupid? Because LOCALITY(R.Gabrial) breaking, you should write code in the way you 
-//  DONT NEED KEEP IN MIND all relations between many types/classes/objects
-//      (autor just try describe Context/Transaction/Command to group some set of operations on
-//      objects)
-//  ..
-//  But generally man in comments describe all this article in just few worlds:
-//      https://habrahabr.ru/post/151169/#comment_5126646
-//      ..
-//      actualy: very similar to my Game class in Hero&Monster exmp in Ruby-OO-guide
-class Game {
-    fn constructor(@hero, @monster) { }
-    // ... tut mozhno dal'we vhu9rit' i Builder-pattern dl9 construckcii scenari9, i e'we raznoi
-    // huini po nuzhdam-i-zhelani9m
-    //   ..NO.. svodits9 vse k odnomu ... Novyi tip dannyh combiniruuet drugie, i predstavl9et
-    // soboi kakuuto novuu semanticheskuu-edinicu so svoimi "methodami", v dannom sluchae eto
-    // "Context"
-}
-
 ## 32
 ///  about: https://signalvnoise.com/archives2/it_just_doesnt_matter.php
 // 
@@ -435,7 +346,7 @@ class Game {
 // since philosophy: `Instrument not politics`"
 //  ... BUT ....
 // Doesn't easier to build more simple and opinionated (and appropriate) software which serve
-// (exmp) 5 years (LESS feautres, and abilities to add-features/configure), and after time, if
+// (exmp) 5-10 years (LESS feautres, and abilities to add-features/configure), and after time, if
 // it doesn't fit, just build NEW software which is MORE APPROPRIATE to new conditions insteak
 // just try "perelepit" old software ....
 // ... someone can say .. but this new software will be not tested/proven/buggy-at-first-time

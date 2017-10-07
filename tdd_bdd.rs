@@ -7,9 +7,20 @@
 ///             and leave solving probleme of "absence of bugs" to "simplicity of implementation"
 ///                             (and "simplicity of purposes" - less edge-cases)
 ///                 SO
-///     Treat TDD-tests like another kind of DOCUMENTATION, but not as a tool to prevent/track
+///     Treat TDD-tests like another kind of DOCUMENTATION, but not as a ("nedo") tool to prevent/track
 ///     bugs (its (prevent): typesystem, simple-code-style(Preact instead of jQuery), code-review
 ///             & (track) QA-test)
+///             ..
+///     You pick scripting-lang and try to use inappropriate tools to make code solid ....
+///     PICK FUCKING TeoremProver-lang .... and don't be pretender
+///     SO
+///         .. in JS, just HOPE that you write program in (like)"type-safe" way .... instead
+///         of using inappropriate tools (TDD tests) for this.
+///             just rely on SIMPLICITY of ORGANIZATION/PATTERN (like preact)
+///                 ..
+///             Especilly if we take into account that in (exmp) frotend dev... everything
+///         bounded to react/redux ... SO... funs usually receive some standatized by framework
+///         types (also Feathers ... hooks has concrete type-structure, etc)
 
 ## 0    // (30-jul-17)
 //
@@ -24,51 +35,12 @@ for meth in ["save", "fuck", "police"] {
 // code often can brake our tests.
 
 
-## 6
-// in *non-pure langs* and *langs without borrow-cheker* the all complexity is reduced to
-///                 WHAT SIDE-EFFS FN CAN DO
-// *(since it can do **any** side-effect **everywhere** (like in JS) )*,  
-// As exmp: is "Scene-n-Actor" exmp in Eff.JS(68-tips):38hint ... SO, whether Actor can mutate 
-// Scene?,
-// In Rust it will be shown in types(I not even mention Hskl) .. AND .. Rust makes us to
-// think about who *OWNs* the data, and .. fn `moveTo` change actor state and `draw` the scene .. 
-// BUT .. changing actor state cause diff `draw` output .. SO .. we actually **also change and scene
-// state**. And also we can say that actors pertain to Scene(Scene *OWNs* actors LITERALLY in
-// Rust)  
-// p.s. !!! For now I come to decision that actor is a value, and when we move Actor we not mutate
-// the actor we mutate its position on the scene
-// 
-/// So, the GIST:  when we mutate some value in our current(executing) fn-A, and call some
-/// anothoer fn-B (from fn-A), and !IF! this fn-B when making some computation(as result produce
-/// either ret-value or side-eff)  RELY on data what we mutate[here actor] in fn-A, THAN we change
-/// the state of fn-B owner[here scene](EVEN if we don't change the owner itself DIRECTLY [direct 
-/// attrs of fn-B_owner]) .. AND .. if in the case of Actor&Scene it was intentionally in OTHER
-/// CASEs it can be !UNINTENNTIONALLY!, ..
-///             ^-- MUT_ALIASING
-/// .. SO .. Rust prevent us from it, also as Clojure(and Hskl)   .. 
-/// ... because [SUPPOSED] we have no ability to read the source of Scene::draw, and we don't know 
-/// that it use the data what we use, and its result(or side-eff) depends of whether we mutate
-/// some data what we use[here actor] or not ... SO in Rust .. we should explicitly pass this 
-/// ABILITY to fn-B ..
-    # 6.0
-    ///     .. actually .. here we have conflict of WHO IS !OWNER! OF COORDINATES (x, y)..
-    ///     since BOTH Actor and Scene use it through its attributes..
-    ///                                                             ... -- aka -= ALIAS =-
-    ///
-    ///         (Actor: self.x & self, y    ...    Scene: self.actors[n].x & self.actors[n].y)
-//
-// So.. according "values_arch" .. `move_to` is a method of Scene, and Actor is just value, and
-// Scene has ActorPositions, which it's used.
-|
 # 6.1
 |
-///**2 assertion**:  
-// 1. we need test side-effs
-// 2. we should describe behavior of class/interf/type  (accodring to BDD)
-// SO .. What the correlation between "behavior" and side-effs ???  
-//   ...
 ///  Behavior is the "what" side-eff and fun-ret-val  object-methods produce in particular
 ///  state.
+///     After-year: NO... behavior if our intention for function, which expressed through
+///     side-effs and ret-vals
 // exmp:
 describe("array", || {                      // << object
     context("empty", || {                   // << state ("context" is better than "describe")
@@ -76,7 +48,7 @@ describe("array", || {                      // << object
         it("pop should raise exception")    // |
     })
 })      ^
-///     ^---    BTW ... if event do test-before-code ....it's best case TO JUST INTENTION
+///     ^---    BTW ... if event do test-before-code ....it's best case TO JUST WRITE INTENTION
 ///     BEFORE CODE
 
 
@@ -104,36 +76,6 @@ describe("array", || {                      // << object
 // If you have many dependencies => than there is some reason for it AND .. if it bother you
 // than such test make you refink you architecture, and rethink: Why you have so much dependencies.
 // (hint: violation SRP(single-resp))
-// 
-// Also
-struct Foo { id: usize, name: String, age: u32 };
-// instead of
-impl Foo {
-    fn new(db: &DBConnection, id) -> Foo {
-        let val = db.get_user(id);
-        Foo {
-            id: id,
-            name: val["name"].to_string(),
-            age: val["age"].to_integer(),
-        }
-    }
-}
-// You need
-impl FooCreator /* Factory ... or Builder in some cases */ {
-    fn new_foo(db: &DBConnection, id: usize) -> Result<Foo, Error> {
-        let val = db.get_user(id).unwrap()?;
-        Foo::new(id: id,
-                 name: val["name"].to_string(),
-                 age: val["age"].to_integer())
-    }
-}
-impl Foo {
-    fn new(id: usize, name: String, age: u32) -> Foo { ... }
-}
-/// SO .. Foo should receive only params that it's realy need
-/// (this related to Demetra Law violation)
-//
-/// Also don't configure args passed to contructor
 
 
 ## 10
@@ -178,14 +120,14 @@ fn some_meth<T: AbstType>(a: T) -> SomeType { a.do_something() }
 //         formally unit-test, but actually INTEGRATION (with REAL DBAdapter) test).
 // }
 ///                                 after a year
-///  Man, you need understand that implementation behind ACDE may DO, but man NOT DO any side-eff
+///  Man, you need understand that implementation behind ACDE may DO, but may NOT DO any side-eff
 ///  for exmp you accept "abstract renderer" (remember DesPatter "Maze" exmp [AFAIRememb "Builder" 
 ///  pattern]) ... and "regular/main" implementation render your (exmp) "maze" ... but another
 ///  implementation just gather statistics ... and send you a report ...
 ///     ..IT'S TOTALLY DIFFERENT SIDE-EFFECTS
 ///     ..
 ///     SO.... eventually in test's it makes sense just write that "function should render
-///     someblabla"
+///     someblabla" --> expect(renderer).should_receive("renderblabla")
 
 
 ## 21

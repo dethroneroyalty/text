@@ -589,3 +589,19 @@ function Namespace.initAdapter(Adapter) { this.adapter = new Adapter(this); }
 // .. it's even similar to "macro-write-programm" of P.Graham, since here "co" serve
 // as eDSL for async-sequncial computational  ... maybe it's the way to robustness in
 // DynLangs.
+//
+// P.S.  REACT TOO
+
+@29
+// the ONE BEAUTY PART of clojure if that IF EVEN you put atom/ref in object
+// then it ONLY if you REALLY need this shared state, and by mutating
+// value now you don't accidantelly mutate another object behavior
+// just because it share this value .... BUT DO IT ON PURPOSE ... since
+// thervise you would just use immutable-data(aka)explict-returning.
+@29.1
+// So, in JS, you TRY not consider object mutation as regular way ...
+// BUT consider:
+//  Object.create
+//  Object.assign, other methods copying
+// -- simple exmp
+// Not mutate options when "validate and correct(def values, etc) it"
