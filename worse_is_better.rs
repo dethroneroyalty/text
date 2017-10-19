@@ -5,6 +5,8 @@
 // | concerned with implementation simplicity and performance, and will work on correctness, 
 // | consistency, and completeness only enough to get the job done, sacrificing any of these
 // | other qualities for ***simplicity.
+//              (btw: preact is example of simplicity of implementation, with simplicity
+//              of API / PATTERN (see Sebastian Markbage talk of small API surface))
 // | Programs designed and implemented using worse-is-better can be written more quickly than
 // | the-right-thing versions, will run on a wider range of computers, will be easily portable,
 // | will be accepted more quickly if good enough, will be eventually improved (to satisfy 90% of
@@ -26,7 +28,7 @@
 //  ..
 //  also - less code - less bugs .... the simple implementation can be easier to understand, even
 //  if API not so nice, and programm is not so "fearture-reach"
-//      (candidate: SimpleTestFramework vs Rspec)
+//      (candidate: SimpleTestFramework(Mocha?) vs Rspec)
 //
 @3
 //  Althogh( as R.Gabrial) said "NewJersey" style "respect" "consistency" .. and try make API
@@ -56,7 +58,6 @@
 //  focused on implementation, which should be "***simple" to get things done ..
 //  .. AND.. it "drive" the design( including API design - see story about "loser-mode" on PC)
 //  of OS.
-//      (for now Linux is not very "simple", see OpenBSD instead)
 //
 @5
 // Also: http://martinfowler.com/bliki/MonolithFirst.html
@@ -126,6 +127,7 @@
 //
 // Fuck, just think about it: in Unit-test in Rails when I test model, I wrote often..
 [foo, bar, fuck].each { |m| obj.should has_method m }
+//          (^--- Type-system for poors)
 // ..
 // ... FUKC, why we need such stupid tests .. IT'S OBVIOUS FROM THE DOC .. HW is when your
 // thinking is not clogged with "reweni9mi po instrukcii" (McDonalds vs Restourant)
