@@ -181,3 +181,10 @@
 // when some "lead" devs of some-opensource project ask "whether you have real use case for your
 // feature . WHAT DRIVE YOU to add this feature, except `it makes improvement`"
 
+@15 (19-oct-2017)
+// Simplicity of implementation (btw: api-surface/intentions impportant too) is result of
+// simplicity purposes/intentions for this soft .... and if something break 20/80 principle
+// (see: Cheng Lou talk) we can try eliminate this "feature" from *this* soft and extract
+// it to another layer .... like for example:
+//  ... don't bother yourself with database-fault-tollerance in node.js ... and just let it
+//  fail, and make docker restart you node-app
