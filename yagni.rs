@@ -1,3 +1,7 @@
+// YOU GOAL ELIMINATE SOFTWARE :lol:
+//
+// Don't try solve everything with software/technology ... but try solve as least as it possible
+
 ## 0 // (migrated from rest_api__bdd##32)
 //
 ///  about: https://signalvnoise.com/archives2/it_just_doesnt_matter.php
@@ -20,10 +24,16 @@
 // complex, it's better eliminate this extesnibility/agility---for---features/extensions
 
 ## 1
-// Fucking pluralizations of names in ORM, and most of all RIGHT pluralization for exceptions.
+// Fucking pluralizations of names in ORM, and most of all - RIGHT pluralization for exceptions.
 //
 // Fuck that.... Just name models in pluralized way .. problem solved (without any code) ... 
 //  ... maybe we can add `toLowerCase` when translate model name to table name ... that NOT TO
 //  DIFFICULT (in sense of implementation)
 //  ... everything is fucking consistent, no exceptions,
-//              YOU TAKE WHAT YOU GIVE, and notghing more...
+//              YOU TAKE WHAT YOU GIVE, and nothing more...
+//
+// ..
+// p.s
+// Also: why they do so complicated getters/setters system, FUCK THAT ... do just simple NATIVE
+// ES6 getter/setters it's engough .... even if it has some "convenients", I don't wanna know all
+// interanl hacks to take full advantage of this over-bloated system.
