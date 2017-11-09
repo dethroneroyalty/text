@@ -175,17 +175,6 @@ impl<T> IO<List<T>> { ... }
 // MOST GENERAL AS POSSIBLE (i think so now)) interface
 
 
-## 22
-// Quotation:
-// | But Grunt’s failure wasn’t configuration. It was a lack of opinion.
-// | Configuration isn’t evil. It’s a powerful time-saver when the assumptions are right.
-// ..
-// For general configuration "gulp" is cool, since JS is much more `agile` lang to express any
-//      possible case,
-// And  "opinionated" configuration with "config-file format" is also cool, since it more concise ..
-// ...  BUT .. don't try to do general "configuration" in config-file format, here
-// PROGRAMMING-lang(dynamic, or with meta-programming facilities) is much better
-
 
 ## 23
 // http://www.javaworld.com/article/2077873/core-java/core-java-creating-dsls-in-java-part-2-fluency-and-context.html?page=2
@@ -216,44 +205,6 @@ expect(alarm.raise()).andThrow(new InvalidStateException());
 // really matter .. and Ruby-n-Rails is used in situation "her9k-her9k i v prodakwen, a potom
 // perepiwem eto na Scale" aka "worse-is-better".
 //              eDSL -- ONLY IN SOME CASES WHERE IT'S REALLY HAS MATTER.
-// ..
-// Also, exmp
-cart.with {
-  add "Milk"
-  add "Juice"
-  println "My cart has $size items."
-}
-// in JS it's just
-cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
-    this.add("Milk");       // In JS it's easier just past the PLAIN-OBJECT
-    ...                     cart.with({ .... })  // and don't bother with "HUMAN-like lang"..
-});                                             // .. STUPID (invented) ASSOCIATIONs
-                            // or
-                            cart.with(ctx
-                                .add("Milk")        // <<- It's just fucking BUILDER, NAHUI eDSL
-                                .add("Juice"))
-// So.. : Ruby just HIDE `this`, and because of that (syntactic sugar) .. people like/try to
-// invents some "conversation-like context", and other traits of "human-lang" ..
-//          .. IT'S JUST FUCKING eDSL .. NAHUI "HUMAN-Lang like traits"
-//
-//! .. Metaprogramming, macros, high-order-fns(for "ergonomicity") .. all stuff what make code
-//! more ergonomic should be used ("tochehno") only for "skrait' ugly", that is remove redundant,
-//! boring code - JUST "DRY"
-// ..
-//! .. "fluent", "context (of convers)", "OO - model code like RealWorld-obj relation",
-//! "code like human-lang" --- DONT CLOG YOUR HEAD  ..
-//    (stuff ( how "seacrh of HUMANITY-traits in code" impact):
-//      - "it's enogh just "a nod" for me-with-friend to understand each other, since we know
-//        the "CONTEXT"  )
-//      - "it's enough just `add` since programmer understand context (but "IMPLICIT CONTEXT" ALSO 
-//            INTRODUSE COMPLEXITY -- famous "Rails magic" -- again: eDSL - TOCHECHNO ..
-//!         .. all narrows down to "CHOOSE RIGHT COMPROMISE" - where it make sense to use eDSL)"
-//        ..
-//! good-coding is all about make code - reusable, simple, and localize the problems(
-//!   - like in "helpers what `eliminate coupling`", or
-//!   - `locality` in R.Gabirel quotation - SEE: main.js:@26, or
-//!   - "test" should help localize "search" of "future-bugs", doen't "100%covering to make my
-//!     code super-relieable and without bugs(don't fool yourself)").
 |23.1
 // also: similarly to "native lang" ..
 //      OOP(subtyping(private, protected, interfaces_ws_abst_classes, etc),
@@ -283,14 +234,6 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 /// think about code .. but actually you think IN THIS NEW CATEGORIES .. which "GARBLE" the GIST
 
 
-## 25
-// AGAIN: about "TEMPORAL COUPLING"
-// ..
-// It's basicly mean that imperative code has implicit( line-by-line ) "comp-order" during
-// which we change the state,
-// functional programming has NO IMPLICIT "comp-order", so that why in Yegor256 expm about
-// "post-get-reguest" he complain about "temporal coupling"
-
 ## 27
 // You need insert "assert" (only) in places where "if we here - it's definetly bug (or at least
 // 90%)"  ..  that's why IF we would handle it as "error" we do STUPID thing, since we
@@ -319,9 +262,6 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 // a "model" on more deep level .. that is "inside" (micro)service/dll
 
 ## 30
-//  see: ::tdd_bdd.rs:##21
-//  ... i o "oop modulieruet mir" - eto bred
-//  ..
 //  So .. "oop modulieruet mir" is fail << Yes, that's true .. BUT .. in context of DDD
 //  it can be "justified" since  the gist in DDD  (AFAIU) is reduce the gap between
 //  "dev" and "domain-expert"
@@ -337,40 +277,9 @@ cart.with(() => {           function cart::with(fn) { fn.call(ctx) ....  }
 //  (nevertheless, even with "justifications" it's seems STUPID, 
 ///     DHH: send me a "magic-dust" from the "world" where stackholders write "Cucumber-features")
 
-## 32
-///  about: https://signalvnoise.com/archives2/it_just_doesnt_matter.php
-// 
-// and after that read comment of **Nathan Rutman**
-//
-// So I had remembered about "X system live for decades because of it's incredible flexibility,
-// since philosophy: `Instrument not politics`"
-//  ... BUT ....
-// Doesn't easier to build more simple and opinionated (and appropriate) software which serve
-// (exmp) 5-10 years (LESS feautres, and abilities to add-features/configure), and after time, if
-// it doesn't fit, just build NEW software which is MORE APPROPRIATE to new conditions insteak
-// just try "perelepit" old software ....
-// ... someone can say .. but this new software will be not tested/proven/buggy-at-first-time
-// BUT ... the gist is SIMPLICITY (not only interface/features but IMPLEMENTATION also) ... soft
-// should be simple in implementation and not necessary super-flexible, but of course WITH THE GAP
-// TO EXTENSION in SOME degree.
-//
-// GENERALLY the rule: if agility-in--(interface/features) makes implementation significantly
-// complex, it's better eliminate this extesnibility/agility---for---features/extensions
-
-
-## 33   // about Feathers
-//
-// Several things that makes difficult to understand what's going on in "Feathers"
-//          (they all actually prettie similar)
-// 1. It was not obvious how "feathers" register it's services.
-//      .. and than I found 'feathers-rest'
-// 2. But after that it was not obvious why "feathers" doesn't handle callback, and after
-//      that I (accidentally) rearead `mixins/promise.js` and found answer ....
-//      ..
-//      That togather make "feathers" a little bit magical(over hackered :lol:)
-//
-
 ## 34
-// - sass ... do one thing and do it well +++ flexibility, since they don't bother about syntax
-// - loopback ... your business to deliver a way(transport) for API (basically rpc) and
-// rest-or-NOTrest we will build on top of that should not be hardcoded.
+// - sass ... do one thing and do it well +++ flexibility, since they don't
+//      bother about syntax
+// - loopback ... your business to deliver a way(transport) for API (basically
+//  rpc) and rest-or-NOTrest we will build on top of that should not be
+//  hardcoded.
