@@ -31,9 +31,25 @@
 //  DIFFICULT (in sense of implementation)
 //  ... everything is fucking consistent, no exceptions,
 //              YOU TAKE WHAT YOU GIVE, and nothing more...
+/// p.s
+//      I will see we can pass pluralized and singular variant in options, SO... like no code, just
+//      pass fucking pluralized variant, but if you don't want we have good default for you.
+//      BUT .... FUCK THAT convinions ... BEST CODE IS ABSENT CODE.
 //
 // ..
 // p.s
 // Also: why they do so complicated getters/setters system, FUCK THAT ... do just simple NATIVE
 // ES6 getter/setters it's engough .... even if it has some "convenients", I don't wanna know all
-// interanl hacks to take full advantage of this over-bloated system.
+// internal hacks to take full advantage of this over-bloated system.
+
+## 2
+/// Postgresql: timestamp with/without time zone
+// Just save time as fucking i64(in milisec, it's enough for thousand years, or 400 years in
+// nanosec)
+//  ... NO FUCKING TIMEZONES ... it's task of CLIENT ... not database. Database just store time in
+//  UTC ... and client can show/manipalute it IN ANY timezone it want
+//  BUT.... Postgres allegedly do it...
+//  BUT ... the tricks IDEALLY they should just use ONE FUCKING TYPE -- timestamp with time zone 
+//  ... NO AMBIGUITY.
+//  IDEALLY ... NOT MENTION TIMEZONE AT ALL ... just client convert time to UTC.
+//

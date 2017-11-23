@@ -7,6 +7,13 @@
 
 3. Find crucial code-paths - stack_of_cals,module_class_relationships what make
     MOST impact on DO_THE_JOB by this code.
-        (p.s.(after year) BDD describe it :lol:)
+      (
+        p.s.(after year) BDD describe it :lol:
+        .. (after another half-year) ..
+         ..BUT people don't write just BDD-tests ....
+         they write test like fucking QA... so you end up with
+         bunch of test which take 3x more then code ... so good luck
+         use tests to discover the code behavior in such case
+      )
 
 4. Start fix_a_bugs and investivgate IN SOME MODULE ..  as way to DIVE_DEEP, 

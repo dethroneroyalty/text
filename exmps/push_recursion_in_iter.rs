@@ -59,7 +59,7 @@ impl<I> Iterator for TransposeMatrIter<I> {
             *self.head.as_ptr().offset(self.n)
         };
         res.push(el);
-        res.concat(self.tails.next());
+        res.concat(self.tails.next())
     }
 
     //!
@@ -101,7 +101,3 @@ impl<I> Iterator for TransposeMatrIter<I> {
 //!     ^-- Eto naverno imenno to o chem govoril E.Meijer v "FP from 1st principles" i 9 v
 //!     "::js_state.js"  .. "generatory"/iterator/producery  .. let's us define "protocol" for
 //!     explicit control of "control-flow" and localize "local state-machine"
-//!     ..
-//!     also: maybe Pony with Actor-model do similar things, it's DEFINE "PROTOCOL" of
-//!     communiaction in programm "EXPLICIT CONTROL-FLOW and STATE-CONTROLLING" .. and localize
-//!     "local state machine" in actors/objects
