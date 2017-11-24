@@ -52,4 +52,8 @@
 //  BUT ... the tricks IDEALLY they should just use ONE FUCKING TYPE -- timestamp with time zone 
 //  ... NO AMBIGUITY.
 //  IDEALLY ... NOT MENTION TIMEZONE AT ALL ... just client convert time to UTC.
-//
+
+
+NA-PODUMAT:
+- Если для реализации новой функциональности, не предусмотренной в абстракции, приходится переписывать пол-проекта, то во время переписывания смело удаляйте такую абстракцию.
+- Если абстракция существенно усложняет отладку кода, то быстрее выпиливайте ее из проекта.
