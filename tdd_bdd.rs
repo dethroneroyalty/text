@@ -303,3 +303,17 @@ fn test_user_saving() {  // <-- although this test can still be considered as Un
 //          ..
 //          like DHH said: don't NECESSARY seek for "fast" Unit tests .... just write INTEGRATION test if
 //          it's more expresive.
+
+## 26 (nov-2017)
+//
+// About inject dependency (DI) everywhere to make code more testable, encourage modularity....
+// .. and the fact that such becomes "boring" to use (PARTICULARLY: create objects)... and
+// some guys claims so in such way TDD damage soft, and make it less natural ...
+// ..
+// .. SO: imagine that you don't let "overusing-DI" everywhere just to have ability
+//  "mock-for-testing" something , and "hardcode" some parts, since it's more convenient to use,
+//  and don't need extensibility on practice ....
+// ...
+//  .. BUT: we can do better: so write everything with DI (extensibility-n-testing) and over this
+//  code write some thin facede which catch most frequent use "hardcoded" use cases
+//
