@@ -53,6 +53,19 @@
 //  ... NO AMBIGUITY.
 //  IDEALLY ... NOT MENTION TIMEZONE AT ALL ... just client convert time to UTC.
 
+## 3
+// AGAIN: about moving complexity from one layer to another if it can be solved better there.
+// Exmp:
+//  Unix-way: C + Shell .. move some complexity from C program to `scripting` level.
+//  H.Valim: "when you make simple actors/objects complexity moves to relations between them" ...
+//      .. SO ... is it's easy to deal with "complexity" in form of relations, then in the form of
+//      "object inner complexity" ... then you CATCH THE GIST of this post/PHILOSOPHY.
+//  (Inspire this post, but not necessary best exmp) AWS S3 access menegement "best-practice"
+//  described in og-aws -- instead of manage access permissions for different objects ... JUST
+//  create diff buckets for them and set for every bucket appropriate permission. So in such way
+//  delegate complexity on the level of app which will interact with many buckets.
+//
+
 
 NA-PODUMAT:
 - Если для реализации новой функциональности, не предусмотренной в абстракции, приходится переписывать пол-проекта, то во время переписывания смело удаляйте такую абстракцию.
